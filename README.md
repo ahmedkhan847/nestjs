@@ -14,4 +14,4 @@ password: '',
 database: '',
 ```
 
-Once everything is configure start application by running `yarn start`. Once the application is started you can visit `localhost:3000/api` to check the api documentation. All the apis except for **login** are protected with _jwt stragtegy_ so you need to login first using `username:john` and `password:password`. Once you are login a token will be generated which you can then use to access APIs
+Once everything is configure start application by running `yarn start`. Once the application is started you can visit `localhost:3000/api` to check the api documentation. All the apis except for **login** are protected with _jwt stragtegy_ so you need to login first. Once you are login a token will be generated which you can then use to access APIs
