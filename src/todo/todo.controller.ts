@@ -23,10 +23,10 @@ import { CreateTodoDto } from './create-todo.dto';
 import { Todo } from './todo.entity';
 import { TodoParams, TodoService } from './todo.service';
 
-// const createTodoSchema: ObjectSchema = Joi.object().keys({
-//     title: Joi.string().required(),
-//     task: Joi.string().required(),
-// })
+const createTodoSchema = Joi.object().keys({
+  title: Joi.string().required(),
+  task: Joi.string().required(),
+});
 
 @ApiBearerAuth()
 @ApiTags('todo')
@@ -52,13 +52,43 @@ export class TodoController {
       },
     },
   })
-  // @UsePipes(new JoiValidationPipe(createTodoSchema))
+  @UsePipes(new JoiValidationPipe(createTodoSchema))
   @ApiResponse({
     status: 401,
     schema: {
       example: {
         statusCode: 401,
         message: 'Unauthorized',
+      },
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    schema: {
+      example: {
+        status: false,
+        message: 'Unable to create todo',
+        errors: [
+          {
+            message: '"title" is required',
+            path: ['title'],
+            type: 'any.required',
+            context: {
+              label: 'title',
+              key: 'title',
+            },
+          },
+          {
+            message: '"task" is required',
+            path: ['task'],
+            type: 'any.required',
+            context: {
+              label: 'task',
+              key: 'task',
+            },
+          },
+        ],
+        data: [],
       },
     },
   })
